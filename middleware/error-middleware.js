@@ -2,7 +2,6 @@
 
 // Custom 404 Not Found route handler
 const error404 = (req, res, next) => {
-    console.log('aksjdh')
     const err = new Error('Not Found');
     err.code = 404;
     next(err);

@@ -11,14 +11,14 @@ router.get('/', (req, res, next) => {
     let filter = {};
 
     if (search) {
+        // const re = new RegExp(search, 'i');
         filter.$or = [{ 'username': search }];
     }
 
     return User
         .find(filter)
         .then(users => res.json(users.map(user => user.serialize())))
-        .catch(err => res.status(500).json({ 
-            message: 'Internal server error' }));
+        .catch(err => res.status(500).json({ message: 'Internal server error' }));
 });
 
 /* ====== POST/CREATE user on /api/users ====== */
