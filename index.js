@@ -19,6 +19,7 @@ const app = express();
 
 //Routers
 const usersRouter = require('./routes/users');
+const authRouter = require('./routes/auth');
 
 app.use(
     morgan(process.env.NODE_ENV === 'production' ? 'common' : 'dev', {
@@ -48,6 +49,7 @@ passport.use(jwtStrategy);
 
 // Mount routers
 app.use('/api/users', usersRouter);
+app.use('/api/auth', authRouter)
 
 // Error handlers
 app.use(error404);

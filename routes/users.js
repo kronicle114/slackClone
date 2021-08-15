@@ -23,7 +23,6 @@ router.get('/', (req, res, next) => {
 
 /* ====== POST/CREATE user on /api/users ====== */
 router.post('/', (req, res, next) => {
-
     const requiredFields = ['username', 'password', 'email'];
     const missingField = requiredFields.find(field => !(field in req.body));
 
