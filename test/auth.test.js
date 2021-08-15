@@ -30,7 +30,6 @@ describe('SlackClone - Auth Test Suite', function () {
         return dbDisconnect();
     });
 
-    
     describe('POST /api/auth/signin', function () {
         it('Should create an authToken', function () {
             let res;
