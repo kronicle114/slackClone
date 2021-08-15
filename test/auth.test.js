@@ -3,15 +3,11 @@
 const { app } = require('../index');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const mongoose = require('mongoose');
-
 const { TEST_DATABASE_URL } = require('../config');
 const { dbConnect, dbDisconnect } = require('../db-mongoose');
-
 const User = require('../models/user');
 
 const expect = chai.expect;
-
 chai.use(chaiHttp);
 
 describe('SlackClone - Auth Test Suite', function () {
