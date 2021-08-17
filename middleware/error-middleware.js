@@ -4,6 +4,7 @@
 const error404 = (req, res, next) => {
     const err = new Error('Not Found');
     err.code = 404;
+    console.error(err)
     next(err);
 };
 
@@ -12,9 +13,11 @@ const error404 = (req, res, next) => {
 const error500 = (err, req, res, next) => {
     if (err.code) {
         const errBody = Object.assign({}, err, { message: err.message });
+        console.error(err)
         res.status(err.code).json(errBody);
     } else if (err.status) {
         err.code = err.status;
+        console.error(err)
         res.status(err.code).json(err);
     } else {
         // eslint-disable-next-line no-console
