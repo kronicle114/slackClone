@@ -188,7 +188,7 @@ describe('SlackClone - Users Test Suite', function () {
             let body = {
                 password: 'testpassword'
             }
-            let res;
+
             return chai
                 .request(app)
                 .put(`/api/users/${param.username}`)
@@ -196,6 +196,22 @@ describe('SlackClone - Users Test Suite', function () {
                 .then( res => {
                     expect(res).to.have.status(200)
                     expect(res).to.be.json
+                })
+        })
+
+        it('Should fail with missing password', function () {
+            let param = {
+                username: 'exampleUser'
+            }
+            let body = {
+            }
+            return chai
+                .request(app)
+                .put(`/api/users/${param.username}`)
+                .send(body)
+                .then(res => {
+                    expect(res).to.have.status(400)
+                    expect(res.body.message).to.equal('Missing userId or password')
                 })
         })
     });
