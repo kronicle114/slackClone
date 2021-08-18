@@ -13,15 +13,15 @@ const error404 = (req, res, next) => {
 const error500 = (err, req, res, next) => {
     if (err.code) {
         const errBody = Object.assign({}, err, { message: err.message });
-        console.error(err)
+        // console.error(err)
         res.status(err.code).json(errBody);
     } else if (err.status) {
         err.code = err.status;
-        console.error(err)
+        // console.error(err)
         res.status(err.code).json(err);
     } else {
         // eslint-disable-next-line no-console
-        console.error(err);
+        // console.error(err);
         res.status(500).json({ message: 'Internal Server Error', code: 500 });
     }
 };
