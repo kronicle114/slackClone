@@ -127,4 +127,26 @@ router.post('/', (req, res, next) => {
         });
 });
 
+/* ====== PUT reset password via username ====== */
+router.put('/:username', (req, res, next) => {
+    const { username } = req.params;
+    const newPassword = req.body.password;
+
+    if(!username || !newPassword) {
+        const err = {
+            message: `Missing userId or password`,
+            reason: 'MissingContent',
+            status: 400,
+            location: 'put'
+        }
+        return next(err)
+    }
+
+    return User.hashPassword(newPassword)
+        .then(digest => User.findOne({username}).update({password: digest}))
+        .then(data => res.json(data))
+        .catch(err => next(err))
+})
+
+
 module.exports = router;
