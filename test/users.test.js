@@ -29,7 +29,7 @@ describe('SlackClone - Users Test Suite', function () {
 
     before(function () {
         return dbConnect(TEST_DATABASE_URL)
-            .then(() => {return User.deleteMany()});
+            .then(() => {return User.deleteMany()})
     });
     beforeEach(function () {
         return User.createIndexes();
@@ -41,7 +41,7 @@ describe('SlackClone - Users Test Suite', function () {
         return dbDisconnect();
     });
 
-    describe('POST /api/users', function () {
+    describe('POST /api/users', function() {
 
         it('Should create a new user', function () {
             let res;
@@ -65,7 +65,7 @@ describe('SlackClone - Users Test Suite', function () {
                 })
                 .then(isValid => {
                     expect(isValid).to.be.true;
-                });
+                })
         });
 
         it('Should reject users with missing username', function () {
@@ -76,7 +76,7 @@ describe('SlackClone - Users Test Suite', function () {
                 .then(result => {
                     res = result;
                     expect(res).to.have.status(422);
-                });
+                })
         });
 
         it('Should reject users with missing password', function () {
@@ -87,7 +87,7 @@ describe('SlackClone - Users Test Suite', function () {
                 .then(result => {
                     res = result;
                     expect(res).to.have.status(422);
-                });
+                })
         });
 
         it('Should reject users with non-string username', function () {
@@ -178,5 +178,41 @@ describe('SlackClone - Users Test Suite', function () {
                         });
                 });
         });
+    });
+
+    describe('PUT /api/users', function() {
+        it('Should return a new hashed password', function() {
+            let param = {
+                username: 'exampleUser'
+            }
+            let body = {
+                password: 'testpassword'
+            }
+
+            return chai
+                .request(app)
+                .put(`/api/users/${param.username}`)
+                .send(body)
+                .then( res => {
+                    expect(res).to.have.status(200)
+                    expect(res).to.be.json
+                })
+        })
+
+        it('Should fail with missing password', function () {
+            let param = {
+                username: 'exampleUser'
+            }
+            let body = {
+            }
+            return chai
+                .request(app)
+                .put(`/api/users/${param.username}`)
+                .send(body)
+                .then(res => {
+                    expect(res).to.have.status(400)
+                    expect(res.body.message).to.equal('Missing userId or password')
+                })
+        })
     });
 });

@@ -139,7 +139,7 @@ router.put('/:username', (req, res, next) => {
     }
 
     return User.hashPassword(newPassword)
-        .then(digest => User.findOne({username}).update({password: digest}))
+        .then(digest => User.findOne({ username }).updateOne({password: digest}))
         .then(data => res.json(data))
         .catch(err => next(err))
 })
