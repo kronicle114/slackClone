@@ -29,7 +29,7 @@ describe('SlackClone - Users Test Suite', function () {
 
     before(function () {
         return dbConnect(TEST_DATABASE_URL)
-            .then(() => {return User.deleteMany()});
+            .then(() => {return User.deleteMany()})
     });
     beforeEach(function () {
         return User.createIndexes();
@@ -41,9 +41,9 @@ describe('SlackClone - Users Test Suite', function () {
         return dbDisconnect();
     });
 
-    describe('POST /api/users', function () {
+    describe('POST /api/users', function() {
 
-        it('Should create a new user', function () {
+        it('Should create a new user', function (done) {
             let res;
             return chai
                 .request(app)
@@ -65,10 +65,11 @@ describe('SlackClone - Users Test Suite', function () {
                 })
                 .then(isValid => {
                     expect(isValid).to.be.true;
-                });
+                })
+                .catch(done)
         });
 
-        it('Should reject users with missing username', function () {
+        it('Should reject users with missing username', function (done) {
             let res;
             return chai.request(app)
                 .post('/api/users')
@@ -76,10 +77,11 @@ describe('SlackClone - Users Test Suite', function () {
                 .then(result => {
                     res = result;
                     expect(res).to.have.status(422);
-                });
+                })
+                .catch(done)
         });
 
-        it('Should reject users with missing password', function () {
+        it('Should reject users with missing password', function (done) {
             let res;
             return chai.request(app)
                 .post('/api/users')
@@ -87,7 +89,8 @@ describe('SlackClone - Users Test Suite', function () {
                 .then(result => {
                     res = result;
                     expect(res).to.have.status(422);
-                });
+                })
+                .catch(done)
         });
 
         it('Should reject users with non-string username', function () {
@@ -178,5 +181,24 @@ describe('SlackClone - Users Test Suite', function () {
                         });
                 });
         });
+    });
+
+    describe('PUT /api/users', function() {
+
+        it('Should return a new hashed password', function() {
+            let body = {
+                password: 'testpassword'
+            }
+            return chai
+                .request(app)
+                .put(`/api/users/${username}`)
+                .send(body)
+                .then( res => {
+                    console.log('users hson on hash',res.json())
+                    expect(res).to.have.status(200)
+                    expect(res).to.be.json
+                    
+                })
+        })
     });
 });
