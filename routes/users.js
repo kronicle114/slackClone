@@ -23,6 +23,7 @@ router.get('/', (req, res, next) => {
 
 /* ====== POST/CREATE user on /api/users ====== */
 router.post('/', (req, res, next) => {
+    console.log('POST CREATE USER ')
     const requiredFields = ['username', 'password', 'email'];
     const missingField = requiredFields.find(field => !(field in req.body));
 
@@ -34,7 +35,7 @@ router.post('/', (req, res, next) => {
         return next(err);
     }
 
-    const stringFields = ['username', 'password', 'email', 'name'];
+    const stringFields = ['username', 'password', 'email'];
     const nonStringField = stringFields.find(
         field => field in req.body && typeof req.body[field] !== 'string');
 
@@ -64,7 +65,7 @@ router.post('/', (req, res, next) => {
             min: 1
         },
         password: {
-            min: 8,
+            min: 3,
             max: 72
         },
         email: {
@@ -93,17 +94,13 @@ router.post('/', (req, res, next) => {
         return next(err);
     }
 
-    let { username, password, email, name } = req.body;
-
-    if (name) {
-        name = name.trim();
-    }
+    let { username, password, email } = req.body;
+    console.log(username, password, email)
 
     return User.hashPassword(password)
         .then(digest => {
             const newUser = {
                 username,
-                name,
                 email,
                 password: digest,
             };
