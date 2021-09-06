@@ -1,6 +1,11 @@
 # slackClone
 Source: https://www.bezkoder.com/node-js-mongodb-auth-jwt/
 
+## Info
+
+## Running the Application
+1. Clone the repository and install it's dependencies
+2. Start the backend using the command: `nodemon index.js` or look into the `package.json` file for instructions to run the application.
 ## 21-8-14
 1. Git repo
 2. package json and dependencies

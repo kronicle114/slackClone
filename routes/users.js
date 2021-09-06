@@ -27,8 +27,10 @@ router.post('/', (req, res, next) => {
     const missingField = requiredFields.find(field => !(field in req.body));
 
     if (missingField) {
+        console.log('missingField', missingField)
         const err = new Error(`missing '${missingField}' in request body`);
         err.status = 422;
+        consooe.log('errrr', err)
         return next(err);
     }
 
