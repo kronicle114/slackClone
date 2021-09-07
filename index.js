@@ -20,6 +20,7 @@ const app = express();
 //Routers
 const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
+const companyRouter = require('./routes/company')
 
 app.use(
     morgan(process.env.NODE_ENV === 'production' ? 'common' : 'dev', {

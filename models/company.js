@@ -1,5 +1,5 @@
 'use strict';
-import User from './user'
+// import User from './user'
 
 const mongoose = require('mongoose');
 
@@ -13,10 +13,10 @@ const CompanySchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    owner: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    }
+    // owner: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'User'
+    // }
 
 })
 
