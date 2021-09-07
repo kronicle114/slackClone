@@ -1,4 +1,5 @@
 'use strict';
+import User from './user'
 
 const mongoose = require('mongoose');
 
@@ -11,7 +12,12 @@ const CompanySchema = new mongoose.Schema({
     date_created: {
         type: Date,
         default: Date.now
+    },
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }
+
 })
 
 module.exports = mongoose.model('Company', CompanySchema);
