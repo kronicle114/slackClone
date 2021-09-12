@@ -28,11 +28,11 @@ app.use(
     })
 );
 
-app.use(
-    cors({
-        origin: CLIENT_ORIGIN
-    })
-);
+// app.use(
+//     cors({
+//         origin: CLIENT_ORIGIN
+//     })
+// );
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", '*');
