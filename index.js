@@ -41,16 +41,16 @@ const allowCrossDomain = function (req, res, next) {
 
 app.use(allowCrossDomain);
 
-// simple route
-app.get("/", (req, res) => {
-    res.json({ message: "Welcome to SlackClone application." });
-});
-
 // Create a static webserver
 app.use(express.static('public'));
 
 // Parse request body
 app.use(express.json());
+
+// simple route
+app.get("/", (req, res) => {
+    res.json({ message: "Welcome to SlackClone application." });
+});
 
 passport.use(localStrategy);
 passport.use(jwtStrategy);
