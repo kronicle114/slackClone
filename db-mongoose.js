@@ -12,7 +12,7 @@ function dbConnect(url = DATABASE_URL) {
         useCreateIndex: true,
         useUnifiedTopology: true
     })
-    .then(()=> console.log('Connected to the db'))
+    .then(()=> console.log('Connected to the db '))
     .catch(err => {
         console.error('Mongoose failed to connect');
         console.error(err);
