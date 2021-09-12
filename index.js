@@ -28,11 +28,11 @@ app.use(
     })
 );
 
-// app.use(
-//     cors({
-//         origin: CLIENT_ORIGIN
-//     })
-// );
+app.use(
+    cors({
+        origin: CLIENT_ORIGIN
+    })
+);
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", '*');
@@ -44,7 +44,7 @@ app.use(function (req, res, next) {
 
 // simple route
 app.get("/", (req, res) => {
-    res.json({ message: "Welcome to trisha application." });
+    res.json({ message: "Welcome to SlackClone application." });
 });
 
 // Create a static webserver
