@@ -7,15 +7,17 @@ const { DATABASE_URL } = require('./config');
 
 function dbConnect(url = DATABASE_URL) {
     return mongoose.connect(url, {
-        useNewUrlParser: true, 
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
         useCreateIndex: true,
         useUnifiedTopology: true
     })
-        .catch(err => {
-            console.error('Mongoose failed to connect');
-            console.error(err);
-            process.exit();
-        });
+    .then(()=> console.log('Connected to the db'))
+    .catch(err => {
+        console.error('Mongoose failed to connect');
+        console.error(err);
+        process.exit();
+    });
 }
 
 function dbDisconnect() {
