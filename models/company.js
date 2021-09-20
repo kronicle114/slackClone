@@ -16,13 +16,25 @@ const CompanySchema = new Schema({
   },
   admin: {
     type: Schema.Types.ObjectId,
-    ref: "user",
+    ref: 'user',
+  },
+  is_deleted: {
+    type: Boolean,
+    default: false,
   },
 });
 
 // static methods
 
 // instance methods
+CompanySchema.methods.serialize = function serialize() {
+  return {
+    id: this._id,
+    name: this.name,
+    admin: this.admin,
+    is_deleted: this.is_deleted,
+  };
+};
 
 const Company = mongoose.model("Company", CompanySchema);
 
