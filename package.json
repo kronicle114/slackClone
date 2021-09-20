@@ -31,6 +31,7 @@
         "pg": "^7.4.3"
     },
     "devDependencies": {
+        "bson": "^4.5.2",
         "chai": "^4.1.2",
         "chai-http": "^4.0.0",
         "mocha": "^5.2.0",

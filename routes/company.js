@@ -1,14 +1,13 @@
 const express = require("express");
 const companyRouter = express.Router();
 const { Company } = require('../models/company');
-const { User } = require('../models/user');
+const User = require('../models/user');
 
 // GET all companies
 companyRouter.get('/', async (request, response, next) => {
-  console.log('GET company by ID');
   let companies = await Company.find({ is_deleted: false });
 
-  if (!companies) {
+  if (companies.length === 0) {
     return response.status(400).json({ message: 'no companies found' });
   }
 
@@ -21,10 +20,9 @@ companyRouter.get('/', async (request, response, next) => {
 
 // Get company by ID
 companyRouter.get('/:id', async (request, response, next) => {
-  console.log('GET all companies');
   const { id } = request.params;
 
-  let company = await Company.findOne({ _id: id });
+  let company = await Company.findOne({ _id: id, is_deleted: false });
 
   if (!company) {
     return response.status(400).json({ message: 'no company found' });
@@ -35,7 +33,6 @@ companyRouter.get('/:id', async (request, response, next) => {
 
 // POST create company
 companyRouter.post('/', async (request, response, next) => {
-  console.log('POST create company');
   let { user, name } = request.body;
 
   // check for missing required parameters
@@ -80,7 +77,6 @@ companyRouter.post('/', async (request, response, next) => {
 
 // PUT company
 companyRouter.put('/:id', async (request, response, next) => {
-  console.log('PUT edit company');
   const { id } = request.params;
 
   let editableFields = ['name'];
@@ -99,12 +95,11 @@ companyRouter.put('/:id', async (request, response, next) => {
 
   company.save();
 
-  return response.status(200).json(company);
+  return response.status(200).json(company.serialize());
 });
 
 // DELETE company
 companyRouter.delete('/:id', async (request, response, next) => {
-  console.log('DELETE company');
   const { id } = request.params;
 
   let company = await Company.findOne({ _id: id });
