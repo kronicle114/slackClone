@@ -7,7 +7,7 @@ const User = require('../models/user');
 companyRouter.get('/', async (request, response, next) => {
   let companies = await Company.find({ is_deleted: false });
 
-  if (companies.length === 0) {
+  if (!Array.isArray(companies) || !companies.length) {
     return response.status(400).json({ message: 'no companies found' });
   }
 
