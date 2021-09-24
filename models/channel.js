@@ -1,7 +1,7 @@
 "use strict";
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
-const { Users } = "./user.js";
+const { User } = "./user.js";
 
 // Define Channel schema
 const ChannelSchema = new Schema({
@@ -22,7 +22,10 @@ const ChannelSchema = new Schema({
     topic: {
         type: String,
     },
-    users: [Users],
+    users: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }],
 });
 
 // static methods
