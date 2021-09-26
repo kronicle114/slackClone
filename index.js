@@ -20,7 +20,8 @@ const app = express();
 //Routers
 const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
-const companyRouter = require('./routes/company')
+const companyRouter = require('./routes/company');
+const messageRouter = require('./routes/message');
 
 app.use(
     morgan(process.env.NODE_ENV === 'production' ? 'common' : 'dev', {
@@ -59,6 +60,7 @@ passport.use(jwtStrategy);
 app.use('/api/users', usersRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/company', companyRouter);
+app.use('/api/message', messageRouter);
 
 // Error handlers
 app.use(error404);
